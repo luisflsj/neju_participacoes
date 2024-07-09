@@ -1,0 +1,11 @@
+credentials:
+  usernames:
+    neju_participacoes:
+      email: neju_participacoes@neju_participacoes.com.br
+      logged_in: False
+      name: Olimpio Stidart
+      password: nejuparticipacoes2024
+cookie:
+  expiry_days: 1
+  key: some_signature_key
+  name: some_cookie_name
