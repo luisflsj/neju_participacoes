@@ -26,24 +26,20 @@ name, authentication_status, username = authenticator.login()
 
 # ==== LÓGICA PARA MOSTRAR A PÁGINA SELECIONADA ==== #
 if authentication_status:
+    if 'logged_in' not in st.session_state or not st.session_state['logged_in']:
+        st.session_state['logged_in'] = True
+        st.experimental_rerun()
     st.button("Logout", on_click=authenticator.logout)
-    show_imobiliaria()  # Substitua por sua lógica específica
-elif authentication_status is False:
-    st.error('Usuário/Senha está inválido.')
-elif authentication_status is None:
-    st.warning('Por favor, utilize seu usuário e senha!')
+    show_imobiliaria()
+else:
+    if 'logged_in' in st.session_state and st.session_state['logged_in']:
+        st.session_state['logged_in'] = False
+        st.experimental_rerun()
+    elif authentication_status is False:
+        st.error('Usuário/Senha está inválido.')
+    elif authentication_status is None:
+        st.warning('Por favor, utilize seu usuário e senha!')
 
 # ==== LÓGICA PARA REMOVER O BOTÃO DE LOGOUT APÓS LOGOUT ==== #
-if 'authentication_status' in st.session_state and not st.session_state['authentication_status']:
+if 'logged_in' in st.session_state and not st.session_state['logged_in']:
     st.experimental_rerun()  # Força um recarregamento da página
-
-# ==== FORÇAR RECARGA DA PÁGINA APÓS O LOGIN ==== #
-if 'logged_in' not in st.session_state:
-    st.session_state['logged_in'] = False
-
-if authentication_status and not st.session_state['logged_in']:
-    st.session_state['logged_in'] = True
-    st.experimental_rerun()
-
-if not authentication_status and st.session_state['logged_in']:
-    st.session_state['logged_in'] = False
