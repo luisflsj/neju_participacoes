@@ -89,7 +89,9 @@ def show_imobiliaria():
             df_cobranca_filtrado = df_cobranca_filtrado[df_cobranca_filtrado['Nº DE PARCELAS ATRASADAS'].isin(filtro_nparcelas_atraso)]
 
         return df_cobranca_filtrado
-
+        
+    st.sidebar.write('Última atualização: 01/07/2024')
+    
     with aba1:
         st.sidebar.header(':blue[SALDO DEVEDOR]', divider='blue')
         df_saldo_devedor_filtrado = sidebar_saldo_devedor(df_saldo_devedor)
