@@ -2,6 +2,11 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 
+# ===== CONFIGURAÇÃO INICIAL DE PÁGINA ==== #
+st.set_page_config(page_title="📊 Análise Estatística de Saldos Devedores e Cobranças", layout="wide")
+st.markdown("<h1 style='text-align: center;'>📊 Análise Estatística de Saldos Devedores e Cobranças</h1>", unsafe_allow_html=True)
+st.divider()
+
 # ===== CARREGAR ARQUIVOS ===== #
 df_cobranca = pd.read_csv('COBRANÇA.csv', delimiter=';', encoding='latin-1')
 df_saldo_devedor = pd.read_csv('SALDO DEVEDOR.csv', delimiter=';', encoding='latin-1')
@@ -88,7 +93,7 @@ def sidebar_cobranca(cobranca):
         df_cobranca_filtrado = df_cobranca_filtrado[df_cobranca_filtrado['Nº DE PARCELAS ATRASADAS'].isin(filtro_nparcelas_atraso)]
 
     return df_cobranca_filtrado
-    
+
 st.sidebar.write('Última atualização: 01/07/2024')
 
 with aba1:
