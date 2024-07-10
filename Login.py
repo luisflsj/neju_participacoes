@@ -35,4 +35,15 @@ elif authentication_status is None:
 
 # ==== LÓGICA PARA REMOVER O BOTÃO DE LOGOUT APÓS LOGOUT ==== #
 if 'authentication_status' in st.session_state and not st.session_state['authentication_status']:
-    st.button("Logout", on_click=None)  # Remove o botão de logout
+    st.experimental_rerun()  # Força um recarregamento da página
+
+# ==== FORÇAR RECARGA DA PÁGINA APÓS O LOGIN ==== #
+if 'logged_in' not in st.session_state:
+    st.session_state['logged_in'] = False
+
+if authentication_status and not st.session_state['logged_in']:
+    st.session_state['logged_in'] = True
+    st.experimental_rerun()
+
+if not authentication_status and st.session_state['logged_in']:
+    st.session_state['logged_in'] = False
