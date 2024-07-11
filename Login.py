@@ -22,6 +22,9 @@ authenticator = stauth.Authenticate(
 )
 
 # ==== FAZER O LOGIN ==== #
+if 'authentication_status' not in st.session_state:
+    st.session_state['authentication_status'] = None
+
 name, authentication_status, username = authenticator.login()
 
 if authentication_status:
