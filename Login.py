@@ -24,22 +24,11 @@ authenticator = stauth.Authenticate(
 # ==== FAZER O LOGIN ==== #
 name, authentication_status, username = authenticator.login()
 
-# ==== LÓGICA PARA MOSTRAR A PÁGINA SELECIONADA ==== #
 if authentication_status:
-    if 'logged_in' not in st.session_state or not st.session_state['logged_in']:
-        st.session_state['logged_in'] = True
-        st.experimental_rerun()
-    st.button("Logout", on_click=authenticator.logout)
-    show_imobiliaria()
-else:
-    if 'logged_in' in st.session_state and st.session_state['logged_in']:
-        st.session_state['logged_in'] = False
-        st.experimental_rerun()
-    elif authentication_status is False:
-        st.error('Usuário/Senha está inválido.')
-    elif authentication_status is None:
-        st.warning('Por favor, utilize seu usuário e senha!')
+    authenticator.logout('Logout', 'main')
+    show_imobiliaria()    
+elif authentication_status == False:
+    st.error('Username/password is incorrect')
+elif authentication_status == None:
+    st.warning('Please enter your username and password')
 
-# ==== LÓGICA PARA REMOVER O BOTÃO DE LOGOUT APÓS LOGOUT ==== #
-if 'logged_in' in st.session_state and not st.session_state['logged_in']:
-    st.experimental_rerun()  # Força um recarregamento da página
